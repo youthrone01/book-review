@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Add Book and Review</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .header{
+                height: 120px;
+                border: 5px solid black;
+                display: block;
+                margin-bottom: 50px;
+            }
+            .left{
+                width: 700px;
+                border: 5px solid black;
+                margin-right: 50px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            .right{
+                width: 300px;
+                border: 5px solid black;
+                display: inline-block;
+            }
+            .header a {
+                display: inline-block;
+                
+                font-size: 24px;
+            }
+            .book{
+                display: inline-block;
+                margin-right: 900px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="header">
+            <div class="book">
+            <h1>{{book_name}}</h1>
+            <h3>Author: {{the_author}}</h3>
+            </div>
+            <a href="/books">Home</a>
+            <a href="/">Logout</a>
+        </div>
+        <div class="left">
+            <h1>Reviews:</h1>
+            <hr>
+            {% if all_reviews %}
+             {% for review in all_reviews %} 
+                <h4>Rating: {{review.rating}}</h4>
+                <p><a href="/users/{{review.user.id}}">{{review.user.first_name}} {{review.user.last_name}}</a> says: {{review.detail}}</p>
+                <p>{{review.created_at}}</p>
+                {% if review.user.id == request.session.id %} 
+                    <button><a href ="/delete/{{review.id}}">Delete</a></button>
+                {% endif %}
+                <hr>
+             {% endfor %}
+            {% endif %}
+
+        </div>
+        <div class="right">
+            <form action="/books/{{book_id}}" method="post">
+                {% csrf_token %}
+                <h3>Add a Review:</h3>
+                <textarea name="review" id="review" cols="30" rows="5"></textarea><br><br>
+                <label for="stars">Rating:</label>
+                <select name="stars">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label> stars.</label><br><br>
+        
+                <input type="submit" value="Submit Review">
+            </form>
+        </div>
+    
+    </body>
+</html>

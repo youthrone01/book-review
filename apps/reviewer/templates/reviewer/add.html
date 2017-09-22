@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Add Book Title and A Review</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #front {
+                
+                margin-left: 900px;
+            }
+                
+        </style>
+        
+    </head>
+    <body>
+        <div class="header">
+            <a id="front" href="/books">Home</a>
+            <a href="/">Logout</a>
+        </div>
+        <h1>Add a New Book Title and a Review</h1><br>
+
+        <form action="/books/add" method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name = "title"><br><br>
+        
+        <label>Author:</label><br>
+        <label for="author">Choose from the list:</label>
+        <select name="author">
+            <option value ="none" selected="selected" disabled>select author</option>
+            {% if all_authors %}
+            {%for each in all_authors%}
+            <option value="{{each.name}}">{{each.name}}</option>
+            {%endfor%}
+            {%endif%}
+        </select>
+        <br><br>
+        <label for="new_author">Or add a new author:</label>
+        <input type="text" name="new_author"><br><br>
+
+        <label for="review">Review:</label><br>
+        <textarea name="review" id="review" cols="30" rows="5"></textarea><br><br>
+
+        <label for="stars">Rating:</label>
+        <select name="stars">
+            <option value ="none" selected="selected" disabled></option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <label> stars</label><br><br>
+
+        <input type="submit" value="Add Book and Review">
+
+        </form>
+        <br><br><br>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Result</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #home{
+                margin-left: 700px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="header">
+            <a id="home" href="/books">Home</a>
+            <a href="/books/add">Add Book and Review</a>
+            <a href="/">Logout</a>
+        </div>
+        <h3>User Alias: {{the_user.alias}}</h3>
+        <h3>Name: {{the_user.first_name}} {{the_user.last_name}}</h3>
+        <h3>Email: {{the_user.email}}</h3>
+        <h3>Total Review: {{count}}</h3><br><br>
+
+        <h2>Post Reviews on the following books:</h2>
+        {% if reviews %}
+        {% for review in reviews %} 
+        <h4><a href="/books/{{review.book.id}}">{{review.book.title}}</a></h4>
+        {% endfor %}
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Books</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            div.books{
+                display: inline-block;
+                margin-right: 50px;
+                border: 5px solid black;
+                vertical-align: top;
+                margin-bottom: 50px;
+            }
+            div.left{
+                width: 700px;
+            }
+
+            div.right{
+                width: 400px;
+            }
+            .inline{
+                display: inline-block;
+            }
+
+            .name{
+                margin-right: 400px;
+            }
+            a{
+                margin-right: 20px;
+            }
+            .font{
+                font-size: 24px;
+            }
+
+        </style>
+        
+    </head>
+    <body>
+        <div class="header">
+            <h3 class="inline name" >Welcome, {{the_user.first_name}} {{the_user.last_name}}</h3>
+            <a class="inline" href="/books/add">Add Book and Review</a>
+            <a class="inline" href="/">Logout</a>
+        </div>
+        
+        <div class="books left">
+            <h3>Recent Book Review:</h3>
+            <hr>
+            {% if top_review %}
+            {% for each in top_review %}
+            <a class ='font' href="/books/{{each.book.id}}">{{each.book.title}}</a>
+            <p>Rating: {{each.rating}}</p>
+            <p><a href="users/{{each.user.id}}">{{each.user.first_name}} {{each.user.last_name}}</a>says {{each.detail}}</p>
+            <p>{{each.created_at}}</p>
+            <hr>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="books right">
+            <h3>Other Books with Reviews</h3><br>
+            {% if books %}
+            {% for each in books %}
+            <a href="/books/{{each.id}}">{{each.title}}</a><br>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        
+    </body>
+</html>
